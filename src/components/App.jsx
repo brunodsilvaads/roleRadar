@@ -1,5 +1,5 @@
-import React from 'react'
-
+import Cartao from './Cartao'
+import Creditos from './Creditos'
 
 const App = () => {
     const estiloSubtitulo = {
@@ -25,6 +25,10 @@ const App = () => {
             Descubra o que existe perto de você
         
         </p>
+        <Creditos />
+        <Cartao cabecalho="Teste">
+            <p>Conteúdo do cartão</p>
+        </Cartao>
     
         <footer>
             RolêRadar © {obterAno()}
