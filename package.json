@@ -1,8 +1,20 @@
 {
   "name": "role-radar",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
+  "description": "Bruno Damasio Silva - 2040482423032\r Lucas Bortoline Chung - 2040482423019\r Luis Gustavo Souza Santos - 2040482423018",
+  "homepage": "https://github.com/brunodsilvaads/roleRadar#readme",
+  "bugs": {
+    "url": "https://github.com/brunodsilvaads/roleRadar/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunodsilvaads/roleRadar.git"
+  },
+  "license": "ISC",
+  "author": "",
   "type": "module",
+  "main": "eslint.config.js",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,6 +22,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "primeflex": "^4.0.0",
+    "primeicons": "^8.0.2",
+    "primereact": "^11.2.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },
