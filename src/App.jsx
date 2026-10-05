@@ -2,6 +2,7 @@ import Cartao from './components/Cartao'
 import Creditos from './components/Creditos'
 import Loading from './components/Loading'
 import React from 'react'
+import MeuPonto from './components/MeuPonto'
 
 class App extends React.Component {
     state = {
@@ -50,9 +51,9 @@ class App extends React.Component {
                                    {this.state.mensagemDeErro} 
                                 </p>
                                 :
-                                <p>
-                                    Localização obtida: {this.state.latitude}, {this.state.longitude}.
-                                </p> 
+                                <Cartao cabecalho='Você está aqui'>
+                                    <MeuPonto latitude={this.state.latitude} longitude={this.state.longitude} onAtualizar={this.obterLocalizacao}/>
+                                </Cartao>
                     }
                 </div>
                 <footer>
