@@ -3,6 +3,9 @@ import Creditos from './components/Creditos'
 import Loading from './components/Loading'
 import React from 'react'
 import MeuPonto from './components/MeuPonto'
+import geoapifyClient from './utils/geoapifyClient'
+import { Button } from '@primereact/ui/button'
+
 
 class App extends React.Component {
     state = {
@@ -53,8 +56,9 @@ class App extends React.Component {
                                 :
                                 <Cartao cabecalho='Você está aqui'>
                                     <MeuPonto horarioLocalizacao={this.state.horarioLocalizacao} latitude={this.state.latitude} longitude={this.state.longitude} onAtualizar={this.obterLocalizacao}/>
-                                </Cartao>
+                                </Cartao>  
                     }
+                    <Button onClick={()=>this.onBuscaRealizada('catering.cafe', 1000)}>Testar</Button>
                 </div>
                 <footer>
                     RolêRadar © {this.obterAno()}
@@ -62,7 +66,18 @@ class App extends React.Component {
             </div>
         )
     }
-
+    onBuscaRealizada = async (categoria, raio) => {
+        
+        const result = await geoapifyClient.get('/places', {
+            params: {
+                categories: categoria,
+                filter: `circle:${this.state.longitude},${this.state.latitude},${raio}`,
+                bias:`proximity:${this.state.longitude},${this.state.latitude}`,
+                limit:20
+            }  
+        })
+        console.log(result.data.features)
+    }
     obterLocalizacao = () => {
         window.navigator.geolocation.getCurrentPosition(
             (position) => {
@@ -81,5 +96,7 @@ class App extends React.Component {
             }
         )
     }
+    
+    
 }
 export default App 
