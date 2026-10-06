@@ -52,7 +52,7 @@ class App extends React.Component {
                                 </p>
                                 :
                                 <Cartao cabecalho='Você está aqui'>
-                                    <MeuPonto latitude={this.state.latitude} longitude={this.state.longitude} onAtualizar={this.obterLocalizacao}/>
+                                    <MeuPonto horarioLocalizacao={this.state.horarioLocalizacao} latitude={this.state.latitude} longitude={this.state.longitude} onAtualizar={this.obterLocalizacao}/>
                                 </Cartao>
                     }
                 </div>
