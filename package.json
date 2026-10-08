@@ -1,0 +1,46 @@
+{
+  "name": "role-radar",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Bruno Damasio Silva - 2040482423032\r Lucas Bortoline Chung - 2040482423019\r Luis Gustavo Souza Santos - 2040482423018",
+  "homepage": "https://github.com/brunodsilvaads/roleRadar#readme",
+  "bugs": {
+    "url": "https://github.com/brunodsilvaads/roleRadar/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brunodsilvaads/roleRadar.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "eslint.config.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@primeicons/react": "^8.0.2",
+    "@primereact/ui": "^11.2.0",
+    "@primeuix/themes": "^3.0.1",
+    "axios": "^1.20.0",
+    "primeflex": "^4.0.0",
+    "primeicons": "^8.0.2",
+    "primereact": "^11.2.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "eslint": "^10.10.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.6",
+    "globals": "^17.12.0",
+    "vite": "^8.3.0"
+  }
+}
