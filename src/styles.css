@@ -1,6 +1,6 @@
 .titulo 
 { 
-    color: blueviolet; 
+    color: #8a2be2; 
     font-size: 40px;
     
 }
@@ -8,9 +8,24 @@
   color: #FF4500;
   font-size: 2rem;
 }
+.botao{
+    background-color: #8a2be2 !important;
+    color: #ffff  !important;
+    border: #ffff !important;
+}
 .botao-categoria {
     background-color: #ffff !important;
+    border: 1px solid #8a2be2  !important;
+    color: #8a2be2 !important;
 }
 .alerta-busca{
     color: #ff0000;
+}
+.botao-categoria:hover{
+    background-color: #8a2be2 !important;
+    color: #ffff  !important;
+    border: #ffff !important;   
+}
+.carregando{
+    color: #8a2be2
 }

@@ -1,13 +1,14 @@
-import Cartao from './components/Cartao'
-import Creditos from './components/Creditos'
-import Loading from './components/Loading'
+import Cartao from './Cartao'
+import Creditos from './Creditos'
+import Loading from './Loading'
 import React from 'react'
-import MeuPonto from './components/MeuPonto'
-import geoapifyClient from './utils/geoapifyClient'
+import MeuPonto from './MeuPonto'
+import geoapifyClient from '../utils/geoapifyClient'
 import { Button } from '@primereact/ui/button'
-import Busca from './components/Busca'
-import Lugar from './components/Lugar'
-import ListaLugares from './components/ListaLugares'
+import Busca from './Busca'
+import Lugar from './Lugar'
+import ListaLugares from './ListaLugares'
+import MapaRadar from './MapaRadar'
 
 
 
@@ -17,7 +18,10 @@ class App extends React.Component {
         longitude: null,
         horarioLocalizacao: null,
         mensagemDeErro: null,
-        lugares: null
+        buscando:false,
+        erroBusca:null,
+        raioBuscado:null,
+        lugares:null
     }
 
     componentDidMount() {
@@ -67,25 +71,47 @@ class App extends React.Component {
                                     <MeuPonto horarioLocalizacao={this.state.horarioLocalizacao} latitude={this.state.latitude} longitude={this.state.longitude} onAtualizar={this.obterLocalizacao}/>
                                 </Cartao>  
                     }
+                    
                     <Cartao cabecalho="O que você procura?">
-                        <Busca onBuscaRealizada={this.onBuscaRealizada}></Busca>
+                        <Busca onBuscaRealizada={this.onBuscaRealizada} ></Busca>
                     </Cartao>
                     </div>
                     
                     <div className="col-6">
-                    {
-                    (!this.state.lugares) ?
-                    null
-                    :
-                    (this.state.lugares.length === 0) ?
-                    
-                    <p>Nenhum lugar encontrado</p> 
-                    :
-                    
-                    <ListaLugares lugares={this.state.lugares}/>
-                    
-                    }
-                
+                        {
+                            (this.state.buscando)?
+                                <Loading mensagem="Aguardando permissão de localização..."/>
+                                :
+                                (this.state.erroBusca!=null)?
+                                    <p>{this.state.erroBusca}</p>
+                                    :
+                                    (this.state.lugares==null)?
+                                        <p></p>
+                                    :
+                                        (this.state.lugares.length==0)?
+                                            <p>Nenhum lugar encontrado. Tente aumentar o raio.</p>
+                                        :   
+                                            <div>
+                                                <div className='m-3'>
+                                                {
+                                                    this.state.lugares.length>1? <strong><p> {this.state.lugares.length} lugares encontrados</p> </strong> : <strong><p>1 lugar encontrado</p></strong>
+                                                }
+                                                </div>
+                                                <Cartao className='w-full' cabecalho="Radar"><MapaRadar latitude={this.state.latitude} longitude={this.state.longitude} lugares={this.state.lugares}/></Cartao>
+                                            </div>
+                                            
+                                
+                        }
+                        {
+                            (!this.state.lugares) ?
+                            null
+                            :
+                            (this.state.lugares.length === 0) ?
+                            
+                            <p>Nenhum lugar encontrado</p> 
+                            :
+                            <ListaLugares lugares={this.state.lugares}/>
+                        }
                     </div>
                     
                 
@@ -96,22 +122,33 @@ class App extends React.Component {
             </div>
         )
     }
-    onBuscaRealizada = async (categoria, raio) => {
-    
-        const result = await geoapifyClient.get('/places', {
+    onBuscaRealizada = (categoria, raio) => {
+        this.setState({buscando:true})
+        geoapifyClient.get('/places', {
             params: {
                 categories: categoria,
                 filter: `circle:${this.state.longitude},${this.state.latitude},${raio}`,
                 bias:`proximity:${this.state.longitude},${this.state.latitude}`,
                 limit:20
             }  
-        })
-        console.log(result.data.features)
-        this.setState({
-            lugares: result.data.features
-
-        })
+        }).then(
+            result=>{
+                this.setState({
+                    lugares: result.data.features,
+                    buscando:false,
+                    erroBusca:null,
+                    raioBuscado:raio
+                })
         
+        },
+        (erro) => {
+                console.log(`Erro: ${erro}`)
+                this.setState({
+                    erroBusca: 'Não foi possível consultar os lugares. Tente novamente.',
+                    buscando:false
+                })
+            }
+        )
     }
     obterLocalizacao = () => {
         window.navigator.geolocation.getCurrentPosition(

@@ -26,10 +26,10 @@ export default class Busca extends Component {
                     <div className="19col-13"> 
                     { 
                         this.categorias.map((categoria, key) => (  
-                            <Button key={categoria.chave} className={(this.state.categoria==categoria.chave)?
+                            <Button  key={categoria.chave} className={(this.state.categoria==categoria.chave)?
                                 'botao-categoria m-1'
                                 :
-                                'm-1'
+                                'botao m-1'
                             } onClick={()=>this.setState({categoria:categoria.chave})}>{categoria.rotulo}</Button>
                         )) 
                         } 
@@ -52,7 +52,7 @@ export default class Busca extends Component {
                         :
                         this.setState({erro:"Escolha uma categoria."})
                     }
-                        className='mt-2 mb-2 w-full'>
+                        className='botao mt-2 mb-2 w-full'>
                         <IconField.Inset>
                         <i className="pi pi-search mr-2"></i> 
                         </IconField.Inset>

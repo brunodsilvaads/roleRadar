@@ -36,6 +36,7 @@ export default class MeuPonto extends Component {
         <p>Hemisfério {this.hemisferio()}</p>
         <p>Localização obtida há {segundos} s</p>
         <Button
+            className='botao-categoria'
             onClick={this.props.onAtualizar}>
             <i className="pi pi-refresh mr-2"></i>
             Atualizar localização
