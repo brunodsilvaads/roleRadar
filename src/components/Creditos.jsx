@@ -1,7 +1,7 @@
 const Creditos = () => {
 
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-3 justify-content-center">
         <a href="https://www.geoapify.com/" target="_blank">
             Powered by Geoapify
         </a>

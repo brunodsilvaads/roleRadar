@@ -26,7 +26,7 @@ export default class Busca extends Component {
                     <div className="19col-13"> 
                     { 
                         this.categorias.map((categoria, key) => (  
-                            <Button className={(this.state.categoria==categoria.chave)?
+                            <Button key={categoria.chave} className={(this.state.categoria==categoria.chave)?
                                 'botao-categoria m-1'
                                 :
                                 'm-1'

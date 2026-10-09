@@ -6,6 +6,9 @@ import MeuPonto from './components/MeuPonto'
 import geoapifyClient from './utils/geoapifyClient'
 import { Button } from '@primereact/ui/button'
 import Busca from './components/Busca'
+import Lugar from './components/Lugar'
+import ListaLugares from './components/ListaLugares'
+
 
 
 class App extends React.Component {
@@ -13,7 +16,8 @@ class App extends React.Component {
         latitude: null,
         longitude: null,
         horarioLocalizacao: null,
-        mensagemDeErro: null
+        mensagemDeErro: null,
+        lugares: null
     }
 
     componentDidMount() {
@@ -23,28 +27,33 @@ class App extends React.Component {
         return new Date().getFullYear()
     }
 
-    render() {
+    render() 
+    
+    {console.log(this.state.lugares)
+        
         const estiloSubtitulo = {
             fontSize: '20px',
             color: 'gray'
         }
+        
         return (
+            
 
-            <div>
-                <div>
-                    <div className='flex align-items-center'>
+            <div className="grid">
+                <div className="col-12 text-center">
+                    <div className='flex align-items-center justify-content-center'>
                         <i className='pi pi-map-marker mr-2' />
                         <h1 className="titulo">
                             RolêRadar
                         </h1>
-                    </div>
+                    
                 </div>
                 <p style={estiloSubtitulo}>
                     Descubra o que existe perto de você
                 </p>
                 <Creditos />
-
-                <div className="col-12 col-md-8">
+                </div>
+                <div className="col-6">
                     {
                         (!this.state.latitude && !this.state.mensagemDeErro) ?
                             <Loading mensagem="Aguardando permissão de localização..."/>
@@ -61,9 +70,27 @@ class App extends React.Component {
                     <Cartao cabecalho="O que você procura?">
                         <Busca onBuscaRealizada={this.onBuscaRealizada}></Busca>
                     </Cartao>
+                    </div>
                     
-                </div>
-                <footer>
+                    <div className="col-6">
+                    {
+                    (!this.state.lugares) ?
+                    null
+                    :
+                    (this.state.lugares.length === 0) ?
+                    
+                    <p>Nenhum lugar encontrado</p> 
+                    :
+                    
+                    <ListaLugares lugares={this.state.lugares}/>
+                    
+                    }
+                
+                    </div>
+                    
+                
+                
+                <footer className="col-12 text-center">
                     RolêRadar © {this.obterAno()}
                 </footer>
             </div>
@@ -80,6 +107,11 @@ class App extends React.Component {
             }  
         })
         console.log(result.data.features)
+        this.setState({
+            lugares: result.data.features
+
+        })
+        
     }
     obterLocalizacao = () => {
         window.navigator.geolocation.getCurrentPosition(
@@ -99,6 +131,8 @@ class App extends React.Component {
             }
         )
     }
+
+
     
     
 }
