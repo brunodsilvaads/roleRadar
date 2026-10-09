@@ -1,11 +1,11 @@
-import Cartao from './components/Cartao'
-import Creditos from './components/Creditos'
-import Loading from './components/Loading'
+import Cartao from './Cartao'
+import Creditos from './Creditos'
+import Loading from './Loading'
 import React from 'react'
-import MeuPonto from './components/MeuPonto'
-import geoapifyClient from './utils/geoapifyClient'
+import MeuPonto from './MeuPonto'
+import geoapifyClient from '../utils/geoapifyClient'
 import { Button } from '@primereact/ui/button'
-import Busca from './components/Busca'
+import Busca from './Busca'
 
 
 class App extends React.Component {
