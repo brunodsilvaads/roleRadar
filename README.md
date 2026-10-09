@@ -7,7 +7,9 @@
 ## Como executar
 
 1. Instalar as dependencias - npm install
-
+   - primereact
+   - primeicons
+   - primeflex
 2. Preencher as chaves em src/utils/chaves.js substituindo o texto COLOQUE_SUA_CHAVE_AQUI
    - Para a chave do [Geoapify](https://myprojects.geoapify.com) é necessário criar uma conta e um projeto, a chave entra na GEOAPIFY_KEY.
    - A licença do [PrimeUI](https://primeui.dev/licenses/community)(Licença Community), a chave entra na PRIMEUI_LICENSE.
