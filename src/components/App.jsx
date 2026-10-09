@@ -1,6 +1,6 @@
-import Cartao from './components/Cartao'
-import Creditos from './components/Creditos'
-import Loading from './components/Loading'
+import Cartao from './Cartao'
+import Creditos from './Creditos'
+import Loading from './Loading'
 import React from 'react'
 
 class App extends React.Component {
