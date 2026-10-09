@@ -94,7 +94,7 @@ class App extends React.Component {
                                             <div>
                                                 <div className='m-3'>
                                                 {
-                                                    this.state.lugares.length>1? <strong><p> {this.state.lugares.length} lugares encontrados</p> </strong> : <strong><p>1 lugar encontrado</p></strong>
+                                                    this.state.lugares.length>1? <strong><p> {this.state.lugares.length} lugares encontrados em até {this.state.raioBuscado}m</p> </strong> : <strong><p>1 lugar encontrado em até {this.state.raioBuscado}</p></strong>
                                                 }
                                                 </div>
                                                 <Cartao className='w-full' cabecalho="Radar"><MapaRadar latitude={this.state.latitude} longitude={this.state.longitude} lugares={this.state.lugares}/></Cartao>
@@ -123,7 +123,7 @@ class App extends React.Component {
         )
     }
     onBuscaRealizada = (categoria, raio) => {
-        this.setState({buscando:true})
+        this.setState({buscando:true, raioBuscado:raio})
         geoapifyClient.get('/places', {
             params: {
                 categories: categoria,
