@@ -6,6 +6,8 @@ import MeuPonto from './components/MeuPonto'
 import geoapifyClient from './utils/geoapifyClient'
 import { Button } from '@primereact/ui/button'
 import Busca from './components/Busca'
+import ListaLugares from './components/ListaLugares'
+import MapaRadar from './components/MapaRadar'
 
 
 class App extends React.Component {
@@ -13,7 +15,11 @@ class App extends React.Component {
         latitude: null,
         longitude: null,
         horarioLocalizacao: null,
-        mensagemDeErro: null
+        mensagemDeErro: null,
+        buscando:false,
+        erroBusca:null,
+        raioBuscado:null,
+        lugares:null
     }
 
     componentDidMount() {
@@ -61,7 +67,33 @@ class App extends React.Component {
                     <Cartao cabecalho="O que você procura?">
                         <Busca onBuscaRealizada={this.onBuscaRealizada}></Busca>
                     </Cartao>
-                    
+                    <div>
+                        {
+                            (this.state.buscando)?
+                                <Loading mensagem="Aguardando permissão de localização..."/>
+                                :
+                                (this.state.erroBusca!=null)?
+                                    <p>this.state.erroBusca</p>
+                                    :
+                                    (this.state.lugares==null)?
+                                        <p></p>
+                                    :
+                                        (this.state.lugares==[])?
+                                            <p>Nenhum lugar encontrado. Tente aumentar o raio.</p>
+                                        :
+                                            <Cartao cabecalho="Radar"><MapaRadar latitude={this.state.latitude} longitude={this.state.longitude} lugares={this.state.lugares}/></Cartao>
+                                
+                        }
+                    </div>
+                    <div>
+                        {
+                            (this.state.lugares) ?
+                                <ListaLugares lugares={this.state.lugares}/>
+                            :
+                                null
+                        }
+                        <p>a</p>
+                    </div>
                 </div>
                 <footer>
                     RolêRadar © {this.obterAno()}
@@ -70,7 +102,7 @@ class App extends React.Component {
         )
     }
     onBuscaRealizada = async (categoria, raio) => {
-    
+   
         const result = await geoapifyClient.get('/places', {
             params: {
                 categories: categoria,
@@ -80,6 +112,10 @@ class App extends React.Component {
             }  
         })
         console.log(result.data.features)
+        this.setState({
+            lugares: result.data.features
+ 
+        })
     }
     obterLocalizacao = () => {
         window.navigator.geolocation.getCurrentPosition(
