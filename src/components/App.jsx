@@ -1,8 +1,8 @@
-import Cartao from './components/Cartao'
-import Creditos from './components/Creditos'
-import Loading from './components/Loading'
+import Cartao from './Cartao'
+import Creditos from './Creditos'
+import Loading from './Loading'
 import React from 'react'
-import MeuPonto from './components/MeuPonto'
+import MeuPonto from './MeuPonto'
 
 class App extends React.Component {
     state = {
